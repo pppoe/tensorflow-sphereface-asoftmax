@@ -59,7 +59,7 @@ def Loss_ASoftmax(x, y, l, num_cls, m = 2, name = 'asoftmax'):
         f = 1.0/(1.0+l)
         ff = 1.0 - f
         comb_logits_diff = tf.add(logits, tf.scatter_nd(ordinal_y, tf.subtract(scaled_logits, sel_logits), logits.get_shape())) 
-        updated_logits = ff*xw + f*comb_logits_diff
+        updated_logits = ff*logits + f*comb_logits_diff
 
         loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y, logits=updated_logits))
 
